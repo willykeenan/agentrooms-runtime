@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "hello-agent-workspace",
+  "taskId": "example-task",
+  "ownerAgentId": "example-agent",
+  "image": "example.invalid/replace-with-verified-image@sha256:0000000000000000000000000000000000000000000000000000000000000000",
+  "argv": ["/bin/sh", "-c", "printf 'hello from an agent workspace\\n' > result.txt"],
+  "limits": {"cpus": 1, "memoryMiB": 256, "pids": 32, "wallSeconds": 30},
+  "network": "none",
+  "outputs": ["result.txt"]
+}

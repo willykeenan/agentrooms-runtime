@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <meta name="description" content="Explore an Agentrooms Runtime task contract. A local, preview-only demo of agent identity, bounded resources, and declared artifacts.">
+  <title>Agentrooms Runtime — Task contract explorer</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./app.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to task explorer</a>
+  <div class="page-shell">
+    <header class="masthead">
+      <a class="brand" href="#" aria-label="Agentrooms Runtime home">
+        <svg class="brand-mark" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><path d="M4 10 16 3l12 7v13l-12 7L4 23Z"/><path d="m4 10 12 7 12-7M16 17v13M10 7l12 7v12"/></svg>
+        <span>agentrooms<span class="brand-product"> / runtime</span></span>
+      </a>
+      <nav aria-label="Project links">
+        <span class="version">v0.1.0a1</span>
+        <a href="https://github.com/willykeenan/agentrooms-runtime/blob/main/README.md" target="_blank" rel="noopener noreferrer">Docs <span aria-hidden="true">↗</span></a>
+        <a class="source-link" href="https://github.com/willykeenan/agentrooms-runtime" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> Experimental · Open source</p>
+          <h1 id="page-title">Every agent task.<br><span>Its own contract.</span></h1>
+          <p class="hero-description">Give a task an owner, a pinned environment, resource limits, and explicit outputs. Explore what an agent-aware runtime starts with.</p>
+        </div>
+        <aside class="preview-notice" aria-label="Demo limitations">
+          <div class="notice-heading"><span class="outline-icon" aria-hidden="true">⌘</span><strong>A contract explorer</strong></div>
+          <p>This demo stays in your browser. It previews JSON and downloads a manifest. It does <strong>not</strong> execute workloads or start containers.</p>
+          <p class="notice-footnote">The Python CLI is the authoritative validator. Isolation and live engine compatibility are not verified by this preview.</p>
+        </aside>
+      </section>
+
+      <section class="explorer" id="workspace" aria-labelledby="explorer-title">
+        <div class="section-heading">
+          <div><p class="eyebrow small">01 / Define the work</p><h2 id="explorer-title">Task contract explorer</h2></div>
+          <span class="local-label"><span aria-hidden="true">◉</span> Local browser preview</span>
+        </div>
+
+        <div class="preset-bar">
+          <span class="preset-label" id="preset-label">Start with an example</span>
+          <div class="presets" role="group" aria-labelledby="preset-label">
+            <button type="button" class="preset active" data-preset="artifact" aria-pressed="true">Write an artifact</button>
+            <button type="button" class="preset" data-preset="analysis" aria-pressed="false">Analyze a batch</button>
+            <button type="button" class="preset" data-preset="tests" aria-pressed="false">Run a test task</button>
+          </div>
+        </div>
+
+        <div class="workspace-grid">
+          <section class="editor-pane" aria-labelledby="editor-title">
+            <div class="pane-toolbar">
+              <div class="file-label"><span class="file-icon" aria-hidden="true">{ }</span><h3 id="editor-title"><label for="manifest-editor">task.json</label></h3></div>
+              <div class="editor-actions"><button id="format" type="button">Format JSON</button><button id="reset" type="button">Reset example</button></div>
+            </div>
+            <textarea id="manifest-editor" spellcheck="false" autocomplete="off" autocapitalize="off" aria-describedby="editor-help json-status" aria-invalid="false" wrap="off"></textarea>
+            <div class="editor-footer"><span id="json-status" role="status" aria-live="polite">Loading example…</span><span id="byte-count"></span></div>
+            <p class="editor-help" id="editor-help">Editable JSON. Example image digests are placeholders, not real images. Changes are kept in this page only.</p>
+          </section>
+
+          <section class="preview-pane" aria-labelledby="preview-title">
+            <div class="pane-toolbar"><div class="file-label"><span class="preview-icon" aria-hidden="true">◇</span><h3 id="preview-title">Contract at a glance</h3></div><span class="preview-badge">Preview only</span></div>
+            <div class="preview-content" id="preview-content">
+              <div class="identity-card">
+                <div class="identity-topline"><span class="field-label">Run identity</span><span class="schema-tag" id="schema-tag">Schema 1</span></div>
+                <p id="run-id" class="run-id">—</p>
+                <dl class="identity-details"><div><dt>Task</dt><dd id="task-id">—</dd></div><div><dt>Agent owner</dt><dd id="owner-id">—</dd></div></dl>
+              </div>
+
+              <div class="preview-section">
+                <h4>Environment</h4>
+                <code id="image-ref" class="image-ref">—</code>
+                <p id="placeholder-note" class="placeholder-note">Illustrative image reference · must be replaced before use</p>
+                <div class="network-row"><span>Requested network</span><code id="network-value">none</code></div>
+              </div>
+
+              <div class="preview-section">
+                <h4>Resource request</h4>
+                <dl class="resource-grid">
+                  <div><dt>CPU</dt><dd><span id="cpu-value">—</span><span class="unit"> cores</span></dd></div>
+                  <div><dt>Memory</dt><dd><span id="memory-value">—</span><span class="unit"> MiB</span></dd></div>
+                  <div><dt>Process limit</dt><dd><span id="pids-value">—</span><span class="unit"> PIDs</span></dd></div>
+                  <div><dt>Wall time</dt><dd><span id="wall-value">—</span><span class="unit"> sec</span></dd></div>
+                </dl>
+              </div>
+
+              <div class="preview-section"><h4>Executable &amp; arguments</h4><ol id="argv-list" class="argv-list" aria-label="Separate argv entries"></ol><p class="section-note">Each row is one argument. The preview does not run it.</p></div>
+              <div class="preview-section last"><h4>Declared outputs <span id="output-count" class="count-badge">0</span></h4><ul id="output-list" class="output-list"></ul></div>
+            </div>
+            <div id="parse-empty" class="parse-empty" hidden><span aria-hidden="true">{ … }</span><h4>Waiting for readable JSON</h4><p>Fix the JSON syntax to see its contract preview. Your text stays in the editor.</p></div>
+          </section>
+        </div>
+
+        <div class="review-strip" id="review-strip">
+          <div class="review-icon" aria-hidden="true">i</div>
+          <div><h3 id="review-title">Parsing is the first step</h3><p id="review-description">This view checks JSON syntax and points out missing or unknown fields. It does not validate security, resource policy, image identity, or engine compatibility.</p><ul id="field-warnings" hidden></ul></div>
+        </div>
+
+        <div class="handoff-row">
+          <div><p class="eyebrow small">02 / Validate locally</p><h3>Take the contract with you.</h3><p>Download the JSON, replace the example image, then use the Python CLI.</p></div>
+          <button id="download" class="download-button" type="button"><span aria-hidden="true">↓</span> Download task.json</button>
+        </div>
+        <div class="cli-example"><span class="terminal-prompt" aria-hidden="true">$</span><code>python3 -m agentrooms_runtime validate task.json</code><span class="cli-label">Run on your machine</span></div>
+      </section>
+
+      <section class="principles" aria-label="Runtime design principles">
+        <article><span class="principle-number">01</span><h3>Identity travels with work</h3><p>A task, its owning agent, and its run identity belong in the same contract.</p></article>
+        <article><span class="principle-number">02</span><h3>Limits are explicit</h3><p>The manifest declares CPU, memory, process count, wall time, and network intent.</p></article>
+        <article><span class="principle-number">03</span><h3>Artifacts are named</h3><p>Outputs are declared before execution. The CLI can hash files after confirmed termination.</p></article>
+      </section>
+    </main>
+
+    <footer><p><strong>Agentrooms Runtime</strong> <span>v0.1.0a1 · Experimental software</span></p><p>No telemetry. No external assets. No workload execution in this demo.</p><a href="https://github.com/willykeenan/agentrooms-runtime/blob/main/README.md" target="_blank" rel="noopener noreferrer">Read the scope &amp; limitations <span aria-hidden="true">↗</span></a></footer>
+  </div>
+  <noscript><p class="noscript">JavaScript is required for this local preview. The source and Python CLI documentation remain available through the links above.</p></noscript>
+</body>
+</html>

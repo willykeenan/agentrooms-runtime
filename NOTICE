@@ -1,0 +1,6 @@
+Agentrooms Runtime
+Copyright 2026 KE Studios
+
+This product includes a Python adaptation of image-reference normalization and
+repository grammar from distribution/reference v0.6.0, licensed under Apache-2.0.
+See THIRD_PARTY_NOTICES.md for upstream attribution and modifications.
