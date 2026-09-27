@@ -7,7 +7,7 @@ sdk: static
 app_file: site/index.html
 pinned: false
 license: apache-2.0
-short_description: Experimental task workspaces for agents and a local manifest preview
+short_description: Experimental agent workspaces and local manifest preview
 ---
 
 # Agentrooms Runtime
